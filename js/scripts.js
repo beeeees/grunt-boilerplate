@@ -1,20 +1,27 @@
 (function($, window, undefined){
-		var MainScripts = {
-				initialize: function(){
-					
-				}
-		};
+  var MainScripts = {
+    thing: false,
+    widget: {
+      one:   'A',
+      two:   'B',
+      three: 'C'
+    },
 
-		// Send to global namespace
-		window.MainScripts = MainScripts;
+    initialize: function(){
 
-		// DOM Ready
-		$(function(){
-				MainScripts.initialize();
-		});
+    }
+  };
 
-		// Deferred loading (window.load)
-		$(window).load(function() {
-		}); 
+  // Send to global namespace (optional)
+  window.MainScripts = MainScripts;
+
+  // DOM Ready
+  $(function(){
+    MainScripts.initialize();
+  });
+
+  // Deferred loading (window.load)
+    $(window).load(function() {
+  }); 
 
 })(jQuery, window, null);

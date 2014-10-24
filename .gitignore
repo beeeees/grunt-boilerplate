@@ -4,11 +4,14 @@
 # or operating system, you probably want to add a global ignore instead:
 # git config --global core.excludesfile ~/.gitignore_global
 
-# Ignore the build directory
-/js/build
-
 # Ignore Sass' cache
 .sass-cache
+
+# Ignore CSS map files
+css/*.map
+
+# Ignore JS map files
+js/*.map
 
 # Ignore cache
 /.cache
