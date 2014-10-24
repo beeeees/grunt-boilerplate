@@ -36,6 +36,13 @@ module.exports = function(grunt) {
         dest: 'js/all.js',
       },
     },
+    uglify: {
+      dist: {
+        files: {
+          'js/all.min.js': ['js/all.js']
+        }
+      }
+    },
     sass: {
       dist: {
         options: {
@@ -61,7 +68,7 @@ module.exports = function(grunt) {
           'js/**/*.js',
           '!js/all.js' // [!] We don't want to watch the generated file.
         ],
-        tasks: ['concat']
+        tasks: ['concat'] // Optionally add 'uglify' to this if you need it.
       },
       css: {
         files: [
@@ -81,6 +88,7 @@ module.exports = function(grunt) {
 
   //  Where we tell Grunt we plan to use the plug-ins configured above
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-connect');
@@ -89,6 +97,11 @@ module.exports = function(grunt) {
   // grunt
   // grunt serve
   // grunt dev 
+  // grunt uglify - to minify the JavaScript
+  // 
+  // Minification of JavaScript is kept separate to keep the 
+  // save -> refresh cycle fast. Run `grunt uglify` before switching
+  // the all.js script tag to all.min.js
   grunt.registerTask('default', ['concat', 'sass', 'watch']);
   grunt.registerTask('serve', ['concat', 'sass', 'connect', 'watch']);
   grunt.registerTask('dev', ['serve']);
