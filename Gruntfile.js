@@ -10,21 +10,21 @@ module.exports = function(grunt) {
           'js/vendor/jquery-1.11.1.min.js',
 
           // Bootstrap individual components
-            'bootstrap-sass-*/assets/javascripts/bootstrap/affix.js',
-            'bootstrap-sass-*/assets/javascripts/bootstrap/alert.js',
-            'bootstrap-sass-*/assets/javascripts/bootstrap/button.js',
-            'bootstrap-sass-*/assets/javascripts/bootstrap/carousel.js',
-            'bootstrap-sass-*/assets/javascripts/bootstrap/collapse.js',
-            'bootstrap-sass-*/assets/javascripts/bootstrap/dropdown.js',
-            'bootstrap-sass-*/assets/javascripts/bootstrap/tab.js',
-            'bootstrap-sass-*/assets/javascripts/bootstrap/transition.js',
-            'bootstrap-sass-*/assets/javascripts/bootstrap/scrollspy.js',
-            'bootstrap-sass-*/assets/javascripts/bootstrap/modal.js',
-            'bootstrap-sass-*/assets/javascripts/bootstrap/tooltip.js',
-            'bootstrap-sass-*/assets/javascripts/bootstrap/popover.js',
+            'bootstrap/assets/javascripts/bootstrap/affix.js',
+            'bootstrap/assets/javascripts/bootstrap/alert.js',
+            'bootstrap/assets/javascripts/bootstrap/button.js',
+            'bootstrap/assets/javascripts/bootstrap/carousel.js',
+            'bootstrap/assets/javascripts/bootstrap/collapse.js',
+            'bootstrap/assets/javascripts/bootstrap/dropdown.js',
+            'bootstrap/assets/javascripts/bootstrap/tab.js',
+            'bootstrap/assets/javascripts/bootstrap/transition.js',
+            'bootstrap/assets/javascripts/bootstrap/scrollspy.js',
+            'bootstrap/assets/javascripts/bootstrap/modal.js',
+            'bootstrap/assets/javascripts/bootstrap/tooltip.js',
+            'bootstrap/assets/javascripts/bootstrap/popover.js',
 
           // OR simply include all Bootstrap
-            // 'bootstrap-sass-*/assets/javascripts/bootstrap.js',
+            // 'bootstrap/assets/javascripts/bootstrap.js',
 
           // Blanket Vendor Scripts
           'js/vendor/*.js', // Include rest of vendor scripts in no particular order.
