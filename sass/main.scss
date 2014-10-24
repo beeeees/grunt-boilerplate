@@ -1,1 +1,7 @@
+// Override Bootstrap variables here:
+@import "variables";
+
 @import "../bootstrap-sass-3.2.0/assets/stylesheets/bootstrap";
+
+// Page specific files, and or groups of styles:
+@import "partials/home.scss";
