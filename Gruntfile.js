@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////
 // Configuration Options
 ///////////////////////////////////////////////
-var enableCoffeeScript = true;
+var enableCoffeeScript = false;
 var uglifyWhenWatching = false;
 
 
@@ -47,6 +47,7 @@ module.exports = function(grunt) {
 
           // Blanket Vendor Scripts
           'js/vendor/*.js',            // Include rest of vendor scripts in no particular order.
+          '!js/vendor/html5shiv.js', // [!] Needs to be in the head to work properly.
           '!js/vendor/respond.min.js', // [!] Needs to be in the head to work properly.
 
 

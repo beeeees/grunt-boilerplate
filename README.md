@@ -1,4 +1,4 @@
-# Usage
+# Grunt Boilerplate
 
 ## Installation
 1. Download the repository: [https://github.com/digi...ve/master.zip](https://github.com/digital-telepathy/grunt-boilerplate/archive/master.zip) and rename the extracted folder to your project's name.
@@ -7,18 +7,16 @@
 1. Run `npm install` to install the required dependencies.
 
 ## Configuration Options
-You may modify the project name, version, and description in the package.json file if desired. These properties are not used at this time.
+You may modify the project name, version, and description in the `package.json` file if desired. These properties are not used at this time.
 
 At the top of the Gruntfile, there are two options. One refers to CoffeeScript and the other refers to Uglification of the concatenated JavaScript.
 
 ### CoffeeScript
-* If you want to use CoffeeScript, then just add your `.coffee` files to the coffee folder at the root of the project. All of the .coffee files will be processed into .js files with the same name. You can even create `scripts.coffee` to replace the main `scripts.js` file if you prefer to use Coffee.
-* If you prefer not to use CoffeeScript, you can edit the `enableCoffeeScript` variable at the top of the `Gruntfile`. You can also delete the coffee folder if you want to.
+If you want to use CoffeeScript, then just add your `.coffee` files to the coffee folder at the root of the project, and then set the `enableCoffeeScript` option in the Gruntfile to `true`. All of the .coffee files will be processed into .js files with the same name. You can even create `scripts.coffee` to replace the main `scripts.js` file.
 ```
-var enableCoffeeScript = false;
+var enableCoffeeScript = true;
 ```
-
-In either case, feel free to delete the sample `coffeescript.coffee` and` coffeescript.js` files in the coffee folder and the js folder. These are samples for testing purposes and should be harmless.
+If CoffeeScript is not applicable for the project, or you prefer not to use it, you can leave the option set to false, and delete the coffee folder.
 
 ### Uglify
 In addition to directly running the uglify task as described below, you can configure the Gruntfile to run the uglify task after the JavaScript has been concatenated into one file.
@@ -26,29 +24,61 @@ In addition to directly running the uglify task as described below, you can conf
 var uglifyWhenWatching = true;
 ```
 
-## Running Grunt or the Dev. Server
-* `grunt` will concatenate your scripts, compile your Sass, and watch for changes.
+## Running Grunt Or The Server
+There are three basic commands that will start grunt. You may want to use the connect server if you have static HTML only. If you have some PHP in your project (header partials, etc.) then you can just use the grunt command without the server. The `dev` command is just an alias for `serve`.
 
-* `grunt serve` or `grunt dev` will concatenate your scripts, compile your Sass, **start a server on port 8000 [http://localhost:8000/](http://localhost:8000/)**, and watch for changes.
+* Running `grunt` will concatenate your scripts, compile your Sass, and watch for changes.
 
-* `grunt uglify` will take your concatenated JavaScript and compress it as a new file with the `.min.js` extension.
+* Running `grunt serve` or `grunt dev` will concatenate your scripts, compile your Sass, **start a server on port 8000 [http://localhost:8000/](http://localhost:8000/)**, and watch for changes.
 
-### Editing
+* Running `grunt uglify` will take your concatenated JavaScript and compress it as a new file with the `.min.js` extension, then exit.
+
+## Working With The Project
+
+### Sass/CSS
 * `/sass/_variables.scss` contains all of your Bootstrap overrides, and any global variables you would like to define.
 
 * `/sass/main.scss` serves as a manifest for loading other scss files.
 
 * `/sass/partials/home.scss` is a sample of a custom included Sass file for custom styles.
 
-### Includes
+### Fontello
+A sample Fontello configuration is included in the package for some simple social icons. To fully leverage Fontello you will want to add/remove icons from the set:
+* Visit [Fontello's Website](http://fontello.com/)
+* Drag the `/fonts/fontello/config.json` file into the browser. This will load the saved configuration for modification.
+* Select or upload new icons.
+* Click the `Download webfont` button.
+* Extract the downloaded zip file and replace the contents of `/fonts/fontello/` with the contents of the zip file.
+* See the `/fonts/fontello/css/fontello-codes.css` file for a quick list of all the CSS classes.
 
+### Concat
+By default, all of the JavaScript is concatenated into one file `all.js`. There are a few exceptions to this rule, and a few JavaScript files that get priority:
+* jQuery
+* All of the Bootstrap JS (in a specific order)
+* The contents of `/js/vendor/` (but not respond.min.js)
+* All of the `.js` files in the `/js/` folder
+* The main `scripts.js` file
+* The `all.js` and `all.min.js` files are explicitly excluded
+
+The `html5shiv.js` and `respond.js` files are needed for IE 8 to work correctly with Bootstrap 3. Additionally, these files do not work correctly unless included in the &lt;head&gt; of the document. They are handled via a conditional comment tag.
+```
+<!--[if lt IE 9]>
+  <script src="js/vendor/html5shiv.js"></script>
+  <script src="js/vendor/respond.min.js"></script>
+<![endif]-->
+```
+
+## The Project Includes
+
+* .gitignore
+* .editorconfig
 * Bootstrap 3
+* Glyphicons (Bootstrap 3)
+* Fontello (sample icons)
 * jQuery
 * Sass
 * CoffeeScript (optional)
 * Uglify For JS (optional)
 * Modernizer.js
-* Respond.js
-* HTML5 Shiv
-* .editorconfig
-* .gitignore
+* Respond.js (IE 8)
+* html5shiv.js (IE 8)
