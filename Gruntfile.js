@@ -1,14 +1,19 @@
 ///////////////////////////////////////////////
 // Configuration Options
 ///////////////////////////////////////////////
-var enableCoffeeScript = false;
 var uglifyWhenWatching = false;
+var sassOutputStyle = 'expanded'; // expanded | nested | compact | compressed
 
+
+
+
+// Require any extras that we might need.
+var fs = require('fs');
 
 ///////////////////////////////////////////////
 // Helper Functions
 ///////////////////////////////////////////////
-function mix(source, target) {
+function merge(source, target) {
   for(var key in source) {
     if (source.hasOwnProperty(key)) {
       target[key] = source[key];
@@ -62,7 +67,7 @@ module.exports = function(grunt) {
     sass: {
       dist: {
         options: {
-          style: 'expanded' // If your .map file works, this can be changed to compressed.
+          style: sassOutputStyle
         },
         files: {
           'css/styles.css': 'sass/main.scss'
@@ -73,22 +78,27 @@ module.exports = function(grunt) {
       livereload: {
         options: { livereload: true },
         files: [
-          'css/**/*.css', // compiled CSS
-          'js/**/*.js', // any JS files
-          '**/*.html', // any HTML files
-          '**/*.php' // any PHP files
+          // Livereload when any of these files change:
+          'css/**/*.css',  // compiled CSS
+          'js/**/*.js',    // any JS files
+          '**/*.html',     // any HTML files
+          '**/*.php'       // any PHP files
         ]
       },
       scripts: {
         files: [
-          'js/**/*.js',
+          // Run the concat task when any of these files change:
+          'js/**/*.js',    // all of the .js files
           '!js/all.js' // [!] We don't want to watch the generated file.
         ],
         tasks: ['concat']
       },
       css: {
-        files: ['sass/**/*.scss'], // Watch all scss files.
-        tasks: ['sass'] // Run the Sass processor.
+        // Run the sass task when any of these files change:
+        files: [
+          'sass/**/*.scss'  // all of the .scss files.
+        ],
+        tasks: ['sass']
       }
     },
     connect: {
@@ -118,7 +128,7 @@ module.exports = function(grunt) {
   ///////////////////////////////////////////////
   // Conditional for CoffeeScript
   ///////////////////////////////////////////////
-  if(enableCoffeeScript){
+  if (fs.existsSync('coffee')) {
     var coffeeConfig = {
       coffee: {
         compile: {
@@ -136,9 +146,9 @@ module.exports = function(grunt) {
         tasks: ['coffee'] // Run the coffee processor.
       }
     };
-    mix(coffeeConfig, config); // Add the coffee configuration.
-    mix(coffeeWatch, config.watch); // Add the coffee watcher.
-    defaultTasks.push('coffee');
+    merge(coffeeConfig, config); // Add the coffee configuration.
+    merge(coffeeWatch, config.watch); // Add the coffee watcher.
+    defaultTasks.unshift('coffee');
     grunt.loadNpmTasks('grunt-contrib-coffee');
   }
 
@@ -156,7 +166,7 @@ module.exports = function(grunt) {
         }
       }
     };
-    mix(uglifyConfig, config); // Add the uglify configuration.
+    merge(uglifyConfig, config); // Add the uglify configuration.
     config.watch.scripts.tasks.push('uglify'); // Add uglify to the concat watcher.
     defaultTasks.push('uglify');
     grunt.loadNpmTasks('grunt-contrib-uglify');

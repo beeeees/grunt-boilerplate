@@ -9,19 +9,18 @@
 ## Configuration Options
 You may modify the project name, version, and description in the `package.json` file if desired. These properties are not used at this time.
 
-At the top of the Gruntfile, there are two options. One refers to CoffeeScript and the other refers to Uglification of the concatenated JavaScript.
-
-### CoffeeScript
-If you want to use CoffeeScript, then just add your `.coffee` files to a `coffee` folder at the root of the project, and then set the `enableCoffeeScript` option in the Gruntfile to `true`. All of the .coffee files will be processed into .js files (in the `js` folder) with the same name. You can even create `scripts.coffee` in your `coffee` folder to replace the main `scripts.js` file.
-```
-var enableCoffeeScript = true;
-```
-If CoffeeScript is not applicable for the project, or you prefer not to use it, you can leave the option set to false.
+At the top of the Gruntfile, there are two options. One refers to the [Sass Output Style](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style) and the other refers to Uglification of the concatenated JavaScript.
 
 ### Uglify
 In addition to directly running the uglify task as described below, you can configure the Gruntfile to run the uglify task after the JavaScript has been concatenated into one file.
 ```
 var uglifyWhenWatching = true;
+```
+
+### Sass Output Style
+There is a convenience variable to set the [Sass Output Style](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style) in the configuration block at the top of the Gruntfile.
+```
+var sassOutputStyle = 'expanded';
 ```
 
 ## Running Grunt Or The Server
@@ -52,13 +51,22 @@ A sample Fontello configuration is included in the package for some simple socia
 * See the `/fonts/fontello/css/fontello-codes.css` file for a quick list of all the CSS classes.
 
 ### Concat
-By default, all of the JavaScript is concatenated into one file `all.js`. There are a few exceptions to this rule, and a few JavaScript files that get priority:
+By default, all of the JavaScript is concatenated into one file `all.js`. There are a few exceptions to this rule, and a few JavaScript files that get priority.
+
+The files are concatenated in this order:
+
 * jQuery
 * All of the Bootstrap JS (in a specific order)
-* The contents of `/js/vendor/` (but not respond.min.js)
+* The contents of `/js/vendor/`
+  * `html5shiv.js` is explicitly excluded
+  * `respond.min.js` is explicitly excluded
 * All of the `.js` files in the `/js/` folder
+  * `all.js` is explicitly excluded
+  * `all.min.js` is explicitly excluded
 * The main `scripts.js` file
-* The `all.js` and `all.min.js` files are explicitly excluded
+
+### CoffeeScript
+If you want to use CoffeeScript, then just create a `coffee` folder at the root of the project and add your `.coffee` files to it. All of the `.coffee` files will be processed into `.js` files (and saved to the `js` folder) with the same name. You can even create `scripts.coffee` in your `coffee` folder to replace the main `scripts.js` file.
 
 The `html5shiv.js` and `respond.js` files are needed for IE 8 to work correctly with Bootstrap 3. Additionally, these files do not work correctly unless included in the &lt;head&gt; of the document. They are handled via a conditional comment tag.
 ```
