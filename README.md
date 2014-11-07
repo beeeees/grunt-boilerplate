@@ -12,11 +12,11 @@ You may modify the project name, version, and description in the `package.json` 
 At the top of the Gruntfile, there are two options. One refers to CoffeeScript and the other refers to Uglification of the concatenated JavaScript.
 
 ### CoffeeScript
-If you want to use CoffeeScript, then just add your `.coffee` files to the coffee folder at the root of the project, and then set the `enableCoffeeScript` option in the Gruntfile to `true`. All of the .coffee files will be processed into .js files with the same name. You can even create `scripts.coffee` to replace the main `scripts.js` file.
+If you want to use CoffeeScript, then just add your `.coffee` files to a `coffee` folder at the root of the project, and then set the `enableCoffeeScript` option in the Gruntfile to `true`. All of the .coffee files will be processed into .js files (in the `js` folder) with the same name. You can even create `scripts.coffee` in your `coffee` folder to replace the main `scripts.js` file.
 ```
 var enableCoffeeScript = true;
 ```
-If CoffeeScript is not applicable for the project, or you prefer not to use it, you can leave the option set to false, and delete the coffee folder.
+If CoffeeScript is not applicable for the project, or you prefer not to use it, you can leave the option set to false.
 
 ### Uglify
 In addition to directly running the uglify task as described below, you can configure the Gruntfile to run the uglify task after the JavaScript has been concatenated into one file.
