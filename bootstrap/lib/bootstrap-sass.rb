@@ -1,13 +1,10 @@
+require 'bootstrap-sass/version'
 module Bootstrap
   class << self
     # Inspired by Kaminari
     def load!
       register_compass_extension if compass?
-
-      if rails?
-        register_rails_engine
-      end
-
+      register_rails_engine      if rails?
       configure_sass
     end
 
@@ -48,7 +45,7 @@ module Bootstrap
     private
 
     def configure_sass
-      require 'sass' unless defined?(::Sass)
+      require 'sass'
 
       ::Sass.load_paths << stylesheets_path
 
@@ -59,6 +56,7 @@ module Bootstrap
     def register_compass_extension
       ::Compass::Frameworks.register(
           'bootstrap',
+          :version               => Bootstrap::VERSION,
           :path                  => gem_path,
           :stylesheets_directory => stylesheets_path,
           :templates_directory   => File.join(gem_path, 'templates')

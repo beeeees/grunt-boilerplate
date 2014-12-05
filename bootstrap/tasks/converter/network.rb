@@ -1,3 +1,4 @@
+require 'shellwords'
 class Converter
   module Network
     protected
@@ -14,8 +15,8 @@ class Converter
       log_http_get_files files, full_path, false
       files.map do |name|
         Thread.start {
-          content = open("#{full_path}/#{name}").read
-          Thread.exclusive { write_cached_files path, name => content }
+          contents[name] = open("#{full_path}/#{name}").read
+          Thread.exclusive { write_cached_files path, name => contents[name] }
         }
       end.each(&:join)
       contents
@@ -29,8 +30,8 @@ class Converter
           path = "#{full_path}/#{name}"
           contents[name] = File.read(path, mode: 'rb') if File.exists?(path)
         end
-        contents
       end
+      contents
     end
 
     def write_cached_files(path, files)
@@ -58,12 +59,17 @@ class Converter
 
     # get sha of the branch (= the latest commit)
     def get_branch_sha
-      return @branch if @branch =~ /\A[0-9a-f]+\z/
-      cmd = "git ls-remote 'https://github.com/#@repo' | awk '/#@branch/ {print $1}'"
-      log cmd
-      @branch_sha ||= %x[#{cmd}].chomp
-      raise 'Could not get branch sha!' unless $?.success?
-      @branch_sha
+      @branch_sha ||= begin
+        if @branch + "\n" == %x[git rev-parse #@branch]
+          @branch
+        else
+          cmd = "git ls-remote #{Shellwords.escape "https://github.com/#@repo"} #@branch"
+          log cmd
+          result = %x[#{cmd}]
+          raise 'Could not get branch sha!' unless $?.success? && !result.empty?
+          result.split(/\s+/).first
+        end
+      end
     end
 
     # Get the sha of a dir

@@ -1,5 +1,10 @@
 # Grunt Boilerplate
 
+### Requirements
+[Node.js](http://nodejs.org/)
+[Ruby](https://www.ruby-lang.org/)
+[Sass Gem](http://sass-lang.com/install)
+
 ## Installation
 1. Download the repository: [https://github.com/digi...ve/master.zip](https://github.com/digital-telepathy/grunt-boilerplate/archive/master.zip) and rename the extracted folder to your project's name.
 1. Move into the directory for your project: `cd my-project`
