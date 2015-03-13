@@ -2336,6 +2336,6 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 
   // Deferred loading (window.load)
     $(window).load(function() {
-  }); 
+  });
 
 })(jQuery, window, null);

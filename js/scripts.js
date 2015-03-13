@@ -22,6 +22,6 @@
 
   // Deferred loading (window.load)
     $(window).load(function() {
-  }); 
+  });
 
 })(jQuery, window, null);

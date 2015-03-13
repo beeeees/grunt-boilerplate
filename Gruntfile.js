@@ -75,16 +75,6 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      livereload: {
-        options: { livereload: true },
-        files: [
-          // Livereload when any of these files change:
-          'css/**/*.css',  // compiled CSS
-          'js/**/*.js',    // any JS files
-          '**/*.html',     // any HTML files
-          '**/*.php'       // any PHP files
-        ]
-      },
       scripts: {
         files: [
           // Run the concat task when any of these files change:
@@ -101,10 +91,32 @@ module.exports = function(grunt) {
         tasks: ['sass']
       }
     },
-    connect: {
-      server: {
+    browserSync: {
+      dev: {
+        bsFiles: {
+          src : [
+            // Livereload when any of these files change:
+            'css/**/*.css',      // compiled CSS
+            'js/**/all*.js',     // concatenated/minified JS
+            '**/*.html',         // any HTML files
+            '**/*.php'           // any PHP files
+          ]
+        },
         options: {
-          port: 8000 // Start a static server on port 8000 (optional)
+          watchTask: true,
+          server: './',
+          port: 8000,
+          snippetOptions: {
+            // Inject the snippet at the end of the body tag.
+            // this helps with issues related to IE conditional
+            // comments getting in the way.
+            rule: {
+              match: /<\/body>/i,
+              fn: function (snippet, match) {
+                return snippet + match;
+              }
+            }
+          }
         }
       }
     }
@@ -115,11 +127,7 @@ module.exports = function(grunt) {
   // Tasks
   ///////////////////////////////////////////////
   var defaultTasks = [
-    'concat',
-    'sass'
-  ];
-  var serveTasks = [
-    'connect',
+    'browserSync',
     'concat',
     'sass'
   ];
@@ -180,7 +188,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-browser-sync');
 
 
   // Initialize the Grunt configuration
@@ -193,8 +201,6 @@ module.exports = function(grunt) {
   ///////////////////////////////////////////////
   //
   // grunt
-  // grunt serve
-  // grunt dev
   // grunt uglify - to minify the JavaScript
   //
   // Minification of JavaScript is kept separate to keep the
@@ -202,8 +208,5 @@ module.exports = function(grunt) {
   // the all.js script tag to all.min.js
 
   defaultTasks.push('watch'); // Watch blocks, so it must be pushed last.
-  serveTasks.push('watch'); // Watch blocks, so it must be pushed last.
   grunt.registerTask('default', defaultTasks);
-  grunt.registerTask('serve', serveTasks);
-  grunt.registerTask('dev', ['serve']);
 };
