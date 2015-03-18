@@ -1,4 +1,4 @@
-# Grunt Boilerplate
+# Grunt Boilerplate (Sass)
 
 ### Requirements
 * [Node.js](http://nodejs.org/)
@@ -6,10 +6,17 @@
 * [Sass Gem](http://sass-lang.com/install)
 
 ## Installation
-1. Download the repository: [https://github.com/digi...ve/master.zip](https://github.com/digital-telepathy/grunt-boilerplate/archive/master.zip) and rename the extracted folder to your project's name.
+1. Download the repository: [https://github.com/digi...ve/master.zip](https://github.com/digital-telepathy/grunt-boilerplate-sass/archive/master.zip) and rename the extracted folder to your project's name.
+
 1. Move into the directory for your project: `cd my-project`
+
 1. Make sure you have [node installed](http://nodejs.org/). Running `node -v` should return a version number.
-1. Install Grunt's command line interface (CLI) globally. You may need to use sudo (for OSX, *nix, BSD etc) or run your command shell as Administrator (for Windows) to do this. `npm install -g grunt-cli`
+
+1. Install Grunt's command line interface (CLI) globally. You may need to use sudo (for OSX, *nix, BSD etc) or run your command shell as Administrator (for Windows).
+  ```
+  npm install -g grunt-cli
+  ```
+
 1. Run `npm install` to install the required dependencies.
 
 ## Configuration Options
