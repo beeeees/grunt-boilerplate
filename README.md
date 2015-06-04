@@ -45,6 +45,31 @@ There are three basic commands that will start grunt. You may want to use the co
 
 * Running `grunt uglify` will take your concatenated JavaScript and compress it as a new file with the `.min.js` extension, then exit.
 
+## Deploying to Heroku
+
+Add the remote to your working copy:
+```bash
+$ git remote add heroku git@heroku.com:app-name.git
+```
+
+Ensure you have the remote added to your working copy:
+```bash
+$ git remote -v
+heroku  git@heroku.com:app-name.git (fetch)
+heroku  git@heroku.com:app-name.git (push)
+
+```
+
+This should output the remotes of the project. One should be called `heroku` and point to the Heroku staging subdomain.
+
+Use the following command to push to Heroku:
+```bash
+$ git push heroku master
+
+```
+
+Make sure your `index.js` file references the correct build directly for Heroku to work correctly.
+
 ## Working With The Project
 
 ### Sass/CSS
