@@ -103,3 +103,5 @@ The `html5shiv.js` and `respond.js` files are needed for IE 8 to work correctly 
 * Modernizer.js
 * Respond.js (IE 8)
 * html5shiv.js (IE 8)
+* browsersync
+* Heroku push/deploy support
