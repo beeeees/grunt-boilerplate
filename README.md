@@ -103,6 +103,9 @@ The files are concatenated in this order:
   * `all.min.js` is explicitly excluded
 * The main `scripts.js` file
 
+### PostCSS
+The PostCSS plugin allows for fallbacks including: `autoprefixer`, `cssnano`, & `pixrem`. THese will enable bore brief code and smaller oput files. By default `pixrem` is commented out.
+
 ### CoffeeScript
 If you want to use CoffeeScript, then just create a `coffee` folder at the root of the project and add your `.coffee` files to it. All of the `.coffee` files will be processed into `.js` files (and saved to the `js` folder) with the same name. You can even create `scripts.coffee` in your `coffee` folder to replace the main `scripts.js` file.
 
@@ -130,3 +133,4 @@ The `html5shiv.js` and `respond.js` files are needed for IE 8 to work correctly 
 * html5shiv.js (IE 8)
 * browsersync
 * Heroku push/deploy support
+* PostCSS with: `autoprefixer`, `cssnano`, `pixrem`

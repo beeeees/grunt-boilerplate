@@ -1,3 +1,5 @@
-#home-thing {
-  color: red;
+h1 {
+  color: $brand-primary;
+  transition: height 250ms; // behold auto-prefixing
+  display: flex; // behold auto-prefixing
 }
