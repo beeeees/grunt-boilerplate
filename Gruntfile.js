@@ -70,8 +70,25 @@ module.exports = function(grunt) {
           style: sassOutputStyle
         },
         files: {
-          'css/styles.css': 'sass/main.scss'
+          'css/pre/styles.css': 'sass/main.scss'
         }
+      }
+    },
+    postcss: {
+      options: {
+        map: true, // inline sourcemaps
+        processors: [
+          // require('pixrem')(), // add fallbacks for rem units
+          require('autoprefixer')({browsers: ['last 2 versions', 'IE 9'] }), // add vendor prefixes
+          require('cssnano')() // minify the result
+        ]
+      },
+      dist: {
+        expand: true,
+        flatten: true,
+        src: ['css/pre/*.css'],
+        dest: 'css/',
+        ext: '.css'
       }
     },
     watch: {
@@ -88,7 +105,10 @@ module.exports = function(grunt) {
         files: [
           'sass/**/*.scss'  // all of the .scss files.
         ],
-        tasks: ['sass']
+        tasks: ['sass', 'postcss']
+      },
+      grunt: {
+        files: ['Gruntfile.js']
       }
     },
     browserSync: {
@@ -97,6 +117,7 @@ module.exports = function(grunt) {
           src : [
             // Livereload when any of these files change:
             'css/**/*.css',      // compiled CSS
+            '!css/pre/*.css',    // Not! pre-compiled CSS
             'js/**/all*.js',     // concatenated/minified JS
             '**/*.html',         // any HTML files
             '**/*.php'           // any PHP files
@@ -129,7 +150,8 @@ module.exports = function(grunt) {
   var defaultTasks = [
     'browserSync',
     'concat',
-    'sass'
+    'sass',
+    'postcss'
   ];
 
 
@@ -189,6 +211,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-browser-sync');
+  grunt.loadNpmTasks('grunt-postcss');
 
 
   // Initialize the Grunt configuration
