@@ -106,6 +106,9 @@ module.exports = function(grunt) {
           'sass/**/*.scss'  // all of the .scss files.
         ],
         tasks: ['sass', 'postcss']
+      },
+      grunt: {
+        files: ['Gruntfile.js']
       }
     },
     browserSync: {
