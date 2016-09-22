@@ -10,6 +10,7 @@
 # Ignore CSS map files
 css/*.map
 css/pre
+dist/*
 
 # Ignore JS map files
 js/*.map
