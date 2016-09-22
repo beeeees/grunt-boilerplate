@@ -30,7 +30,7 @@ var sassOutputStyle = 'expanded';
 
 ## Making a build or running the dev server
 
-* Running `npm run dev` will transpile your JS, compile your Sass, and watch for changes. BrowserSync will also be started.
+* Running `npm start` will transpile your JS, compile your Sass, and watch for changes. BrowserSync will also be started.
 
 * Running `npm run build` will transpile your JS, compile your Sass, uglify the transpiled JS, then exit.
 
