@@ -1,4 +1,4 @@
-# Grunt Boilerplate (Sass)
+# Grunt Boilerplate (Sass, Babel)
 
 ### Requirements
 * [Node.js](http://nodejs.org/)
