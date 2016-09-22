@@ -1,0 +1,20 @@
+{
+  "name": "Grunt Boilerplate Sass",
+  "keywords": [
+    "grunt",
+    "boilerplate",
+    "autoprefixer",
+    "sass"
+  ],
+  "repository": "https://github.com/digital-telepathy/grunt-boilerplate-sass",
+  "formation": {
+    "web": {
+      "quantity": 1,
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    }
+  ]
+}
