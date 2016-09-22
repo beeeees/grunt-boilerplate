@@ -1,9 +1,9 @@
 // Override Bootstrap variables here:
 @import "variables";
-@import "../bootstrap/assets/stylesheets/bootstrap";
+@import "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 // Fontello (optional)
-@import "../fonts/fontello/css/fontello.css";
+@import "../../fonts/fontello/css/fontello.css";
 
 // Page specific files, and or groups of styles:
 @import "partials/home.scss";

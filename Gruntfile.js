@@ -1,14 +1,7 @@
 ///////////////////////////////////////////////
 // Configuration Options
 ///////////////////////////////////////////////
-var uglifyWhenWatching = false;
 var sassOutputStyle = 'expanded'; // expanded | nested | compact | compressed
-
-
-
-
-// Require any extras that we might need.
-var fs = require('fs');
 
 ///////////////////////////////////////////////
 // Helper Functions
@@ -25,81 +18,17 @@ function merge(source, target) {
 module.exports = function(grunt) {
   var config = {
     pkg: grunt.file.readJSON('package.json'),
-
-    concat: {
-      dist: {
-        src: [
-          // jQuery
-          'js/vendor/jquery-1.11.1.min.js',
-
-          // Bootstrap individual components (load order matters)
-            'bootstrap/assets/javascripts/bootstrap/affix.js',
-            'bootstrap/assets/javascripts/bootstrap/alert.js',
-            'bootstrap/assets/javascripts/bootstrap/button.js',
-            'bootstrap/assets/javascripts/bootstrap/carousel.js',
-            'bootstrap/assets/javascripts/bootstrap/collapse.js',
-            'bootstrap/assets/javascripts/bootstrap/dropdown.js',
-            'bootstrap/assets/javascripts/bootstrap/tab.js',
-            'bootstrap/assets/javascripts/bootstrap/transition.js',
-            'bootstrap/assets/javascripts/bootstrap/scrollspy.js',
-            'bootstrap/assets/javascripts/bootstrap/modal.js',
-            'bootstrap/assets/javascripts/bootstrap/tooltip.js',
-            'bootstrap/assets/javascripts/bootstrap/popover.js',
-
-          // OR simply include all Bootstrap
-            // 'bootstrap/assets/javascripts/bootstrap.js',
-
-
-          // Blanket Vendor Scripts
-          'js/vendor/*.js',            // Include rest of vendor scripts in no particular order.
-          '!js/vendor/html5shiv.js', // [!] Needs to be in the head to work properly.
-          '!js/vendor/respond.min.js', // [!] Needs to be in the head to work properly.
-
-
-          'js/*.js',        // All .js files.
-          'js/scripts.js',  // Add the scripts.js file last.
-          '!js/all.js',     // [!] Do not concat all.js
-          '!js/all.min.js'  // [!] Do not concat all.min.js
-        ],
-        dest: 'js/all.js',
-      },
-    },
     sass: {
+      options: {
+        outputStyle: sassOutputStyle
+      },
       dist: {
-        options: {
-          style: sassOutputStyle
-        },
         files: {
-          'css/pre/styles.css': 'sass/main.scss'
+          'css/pre/main.css': 'sass/main.scss'
         }
       }
     },
-    postcss: {
-      options: {
-        map: true, // inline sourcemaps
-        processors: [
-          // require('pixrem')(), // add fallbacks for rem units
-          require('autoprefixer')({browsers: ['last 2 versions', 'IE 9'] }), // add vendor prefixes
-          require('cssnano')() // minify the result
-        ]
-      },
-      dist: {
-        expand: true,
-        flatten: true,
-        src: ['css/pre/*.css'],
-        dest: 'css/',
-        ext: '.css'
-      }
-    },
     watch: {
-      scripts: {
-        files: [
-          // Run the concat task when any of these files change:
-          'js/**/*.js',    // all of the .js files
-          '!js/all.js' // [!] We don't want to watch the generated file.
-        ],
-        tasks: ['concat']
-      },
       css: {
         // Run the sass task when any of these files change:
         files: [
@@ -110,17 +39,91 @@ module.exports = function(grunt) {
       grunt: {
         files: ['Gruntfile.js']
       }
-    },
+    }
+  };
+
+
+  ///////////////////////////////////////////////
+  // Tasks
+  ///////////////////////////////////////////////
+  var defaultTasks = [
+    'clean',
+    'sass',
+    'postcss',
+    'browserify',
+    'uglify'
+  ];
+  var watchTasks = [
+    'browserSync',
+    'clean',
+    'sass',
+    'postcss',
+    'browserify',
+    'watch'
+  ];
+
+
+  ///////////////////////////////////////////////
+  // Clean transpiled files
+  ///////////////////////////////////////////////
+  var cleanConfig = {
+    clean: [
+      'css/pre/*.css'
+    ]
+  };
+  merge(cleanConfig, config);
+
+
+  ///////////////////////////////////////////////
+  // Clean transpiled files
+  ///////////////////////////////////////////////
+  var browserifyConfig = {
+    browserify: {
+       dist: {
+          options: {
+            watch: true,
+            keepAlive: false,
+            transform: [
+              ['babelify', {presets: ['es2015', 'react']}]
+            ]
+          },
+          files: {
+             "dist/js/main.js": ["js/main.js"]
+          }
+       }
+    }
+  };
+  merge(browserifyConfig, config);
+
+
+  ///////////////////////////////////////////////
+  // Conditional for Uglification
+  ///////////////////////////////////////////////
+  var uglifyConfig = {
+    uglify: {
+      dist: {
+        files: [{
+          expand: true,
+          src: '**/*.js',
+          dest: 'dist/js',
+          cwd: 'dist/js'
+        }]
+      }
+    }
+  };
+  merge(uglifyConfig, config); // Add the uglify configuration.
+
+
+  var browserSyncConfig = {
     browserSync: {
       dev: {
         bsFiles: {
           src : [
             // Livereload when any of these files change:
-            'css/**/*.css',      // compiled CSS
-            '!css/pre/*.css',    // Not! pre-compiled CSS
-            'js/**/all*.js',     // concatenated/minified JS
-            '**/*.html',         // any HTML files
-            '**/*.php'           // any PHP files
+            'dist/css/**/*.css',      // compiled CSS
+            'dist/js/**/*.js',        // concatenated/minified JS
+            '**/*.html',              // any HTML files
+            '**/*.php'                // any PHP files
           ]
         },
         options: {
@@ -142,94 +145,53 @@ module.exports = function(grunt) {
       }
     }
   };
+  merge(browserSyncConfig, config);
 
 
   ///////////////////////////////////////////////
-  // Tasks
+  // Includes Conditional for PostCSS in prod.
   ///////////////////////////////////////////////
-  var defaultTasks = [
-    'browserSync',
-    'concat',
-    'sass',
-    'postcss'
-  ];
-
-
-  ///////////////////////////////////////////////
-  // Conditional for CoffeeScript
-  ///////////////////////////////////////////////
-  if (fs.existsSync('coffee')) {
-    var coffeeConfig = {
-      coffee: {
-        compile: {
-          expand: true,
-          flatten: true,
-          src: ['coffee/*.coffee'],
-          dest: 'js/',
-          ext: '.js'
-        }
+  var postCSSConfig = {
+    postcss: {
+      options: {
+        map: true, // inline sourcemaps
+        processors: [
+          require('autoprefixer')({browsers: ['last 2 versions'] }), // add vendor prefixes
+        ]
+      },
+      dist: {
+        expand: true,
+        flatten: true,
+        src: ['css/pre/*.css'],
+        dest: 'dist/css/',
+        ext: '.css'
       }
-    };
-    var coffeeWatch = {
-      coffee: {
-        files: ['coffee/**.coffee'], // Watch the coffee files.
-        tasks: ['coffee'] // Run the coffee processor.
-      }
-    };
-    merge(coffeeConfig, config); // Add the coffee configuration.
-    merge(coffeeWatch, config.watch); // Add the coffee watcher.
-    defaultTasks.unshift('coffee');
-    grunt.loadNpmTasks('grunt-contrib-coffee');
+    }
+  };
+  if(process.env.NODE_ENV == 'production'){
+    postCSSConfig.postcss.options.processors.push(
+      require('cssnano')()
+    )
   }
-
-
-  ///////////////////////////////////////////////
-  // Conditional for Uglification
-  ///////////////////////////////////////////////
-  if(uglifyWhenWatching){
-    var uglifyConfig = {
-      uglify: {
-        dist: {
-          files: {
-            'js/all.min.js': ['js/all.js']
-          }
-        }
-      }
-    };
-    merge(uglifyConfig, config); // Add the uglify configuration.
-    config.watch.scripts.tasks.push('uglify'); // Add uglify to the concat watcher.
-    defaultTasks.push('uglify');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-  }
+  merge(postCSSConfig, config);
 
 
   ///////////////////////////////////////////////
   // Where we tell Grunt we plan to use
   // the plug-ins configured above
   ///////////////////////////////////////////////
-  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks("grunt-browserify");
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-browser-sync');
   grunt.loadNpmTasks('grunt-postcss');
+  grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-browser-sync');
 
 
   // Initialize the Grunt configuration
   grunt.initConfig(config);
 
-
-  ///////////////////////////////////////////////
-  // What will initialize when we type
-  // "grunt" into the terminal.
-  ///////////////////////////////////////////////
-  //
-  // grunt
-  // grunt uglify - to minify the JavaScript
-  //
-  // Minification of JavaScript is kept separate to keep the
-  // save -> refresh cycle fast. Run `grunt uglify` before switching
-  // the all.js script tag to all.min.js
-
-  defaultTasks.push('watch'); // Watch blocks, so it must be pushed last.
   grunt.registerTask('default', defaultTasks);
+  grunt.registerTask('dev', watchTasks);
 };
