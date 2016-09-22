@@ -5,7 +5,7 @@
 # git config --global core.excludesfile ~/.gitignore_global
 
 # Ignore Sass' cache
-.sass-cache
+*.sass-cache*
 
 # Ignore CSS map files
 css/*.map
