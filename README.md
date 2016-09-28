@@ -90,8 +90,7 @@ The PostCSS plugin allows for fallbacks including: `autoprefixer`, `cssnano`, & 
 
 * .gitignore
 * .editorconfig
-* Bootstrap 3
-* Glyphicons (Bootstrap 3)
+* Bootstrap 4
 * Fontello (sample icons)
 * jQuery
 * Sass
