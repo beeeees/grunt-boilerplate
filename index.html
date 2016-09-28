@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html lang="en" class="no-js">
   <head>
     <title></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta charset="utf-8">
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!-- <link rel="icon" type="image/x-icon" href="img/favicon.ico" /> -->
     <!-- <link rel="icon" type="image/png" href="img/favicon.png" /> -->
 
@@ -30,62 +30,49 @@
 
     <div class="main">
 
-      <nav class="navbar navbar-default" role="navigation">
+      <nav class="navbar navbar-light bg-faded">
         <div class="container">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Brand</a>
-          </div>
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#collapsing-navbar" aria-controls="collapsing-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            &#9776;
+          </button>
+          <div class="collapse navbar-toggleable-sm" id="collapsing-navbar">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Separated link</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <div class="dropdown">
+                  <div class="btn-group">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Dropdown</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">First Item</a>
+                      <a class="dropdown-item" href="#">Second Item</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+                  </div>
+                </div>
               </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#">Link</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li class="divider"></li>
-                  <li><a href="#">Separated link</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
+
+            <form class="form-inline pull-sm-right">
+              <input class="form-control" type="text" placeholder="Search">
+            </form>
+          </div>
+        </div>
       </nav>
 
       <div class="section">
         <div class="container">
           <h1>Grunt Boilerplate</h1>
-          <p>Uses Bootstrap 3, Sass</p>
+          <p>Uses Bootstrap 4.0.0-alpha.4, Sass</p>
           <p>As an example: <a href="#" class="btn btn-primary btn-sm">Button</a> The brand color has been customized in the <code>_variables.scss</code> file.</p>
-          <p>
-            <a href="http://getbootstrap.com/components/#glyphicons" target="_blank">Glyphicons</a> are set up: <i class="glyphicon glyphicon-envelope"></i>
-          </p>
           <p>
             <a href="http://fontello.com/" target="_blank">Fontello</a> is set up too: <i class="icon-mail"></i>
           </p>

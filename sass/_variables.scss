@@ -1,7 +1,11 @@
-$icon-font-path: "../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
+// Override Bootstrap variables
 
-$brand-primary: deeppink;
-
-$navbar-height: 49px;
-$navbar-margin-bottom: 0;
-$navbar-border-radius: 0;
+$brand-primary: rebeccapurple;
+$spacer: 1rem;
+$enable-flex: true;
+$enable-rounded: true;
+$enable-shadows: false;
+$enable-gradients: false;
+$enable-transitions: true;
+$enable-hover-media-query: false;
+$enable-grid-classes: true;

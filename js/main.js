@@ -1,7 +1,17 @@
 // jQuery and Bootstrap are considered global and should
 // be required using the require syntax.
-window.$ = window.jQuery = require('jquery');
-var Bootstrap = require('bootstrap-sass');
+window.$ = window.jQuery = require('jquery')
+// window.Tether = require('tether') // required for tooltips
+// require('../bootstrap/js/src/alert.js')
+require('../bootstrap/js/src/button.js')
+// require('../bootstrap/js/src/carousel.js')
+require('../bootstrap/js/src/collapse.js')
+require('../bootstrap/js/src/dropdown.js')
+require('../bootstrap/js/src/modal.js')
+// require('../bootstrap/js/src/scrollspy.js')
+// require('../bootstrap/js/src/tab.js')
+// require('../bootstrap/js/src/tooltip.js')
+// require('../bootstrap/js/src/popover.js')
 
 
 // Other things can be imported using the ES6 Import syntax
