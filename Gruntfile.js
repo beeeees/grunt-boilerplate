@@ -20,9 +20,12 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     sass: {
       options: {
-        outputStyle: sassOutputStyle
+          sourceMap: true
       },
-      dist: {
+      main: {
+        options: {
+          style: sassOutputStyle
+        },
         files: {
           'css/pre/main.css': 'sass/main.scss'
         }
@@ -79,7 +82,7 @@ module.exports = function(grunt) {
   ///////////////////////////////////////////////
   var browserifyConfig = {
     browserify: {
-       dist: {
+       main: {
           options: {
             watch: true,
             keepAlive: false,
