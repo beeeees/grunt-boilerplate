@@ -81,7 +81,7 @@ A sample Fontello configuration is included in the package for some simple socia
 By default, the Babel configuration is set up for ES6 and React. There is one JavaScript file by default, and `require`/`import` statements can be used to compose the needed scripts.
 
 ### PostCSS
-The PostCSS plugin allows for fallbacks including: `autoprefixer`, `cssnano`, & `pixrem`. These will enable bore brief code and smaller oput files.
+The PostCSS plugin allows for fallbacks including: `autoprefixer`, `cssnano`, & `pixrem`. These will enable more concise CSS, and smaller output files.
 
   * By default `pixrem` is not used.
   * `cssnano` is not run during development.
