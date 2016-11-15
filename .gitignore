@@ -4,11 +4,16 @@
 # or operating system, you probably want to add a global ignore instead:
 # git config --global core.excludesfile ~/.gitignore_global
 
-# Ignore the build directory
-/js/build
-
 # Ignore Sass' cache
-.sass-cache
+*.sass-cache*
+
+# Ignore CSS map files
+css/*.map
+css/pre
+dist/*
+
+# Ignore JS map files
+js/*.map
 
 # Ignore cache
 /.cache
@@ -18,5 +23,5 @@
 *.DS_Store*
 */.DS_Store
 
-# Use npm to manage dependencies in your dev environment, but not in your deployment scripts. 
+# Use npm to manage dependencies in your dev environment, but not in your deployment scripts.
 *node_modules*
